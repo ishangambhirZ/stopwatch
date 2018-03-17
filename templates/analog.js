@@ -16,6 +16,7 @@ AnalogTemplate.prototype.setupVariables = function() {
 }
 AnalogTemplate.prototype.displayTime = function(counter) {
     if (counter === 0) {
+        this.resetClock();
         return;
     }
     var time = this.getTimeObj(counter);
@@ -36,7 +37,7 @@ AnalogTemplate.prototype.displayTime = function(counter) {
             this.totalSecondNeedleRotation += 6;
             this.rotateNode(this.secondsHand, this.totalSecondNeedleRotation);
         }
-        if (this.totalMinuteNeedleRotation%360 !== minutesRotation%360)) {
+        if (this.totalMinuteNeedleRotation%360 !== minutesRotation%360) {
             this.totalMinuteNeedleRotation += 6;
             this.rotateNode(this.minutesHand, this.totalMinuteNeedleRotation);
         }
@@ -45,7 +46,19 @@ AnalogTemplate.prototype.displayTime = function(counter) {
 AnalogTemplate.prototype.rotateNode = function(node, val) {
     node.style.transform = `rotate(${val}deg)`;
 }
-
+AnalogTemplate.prototype.resetClock = function(){
+  this.millisecondsHand.style.transform = "rotate(0deg)";
+  this.secondsHand.style.transitionDuration = "0s";
+  this.secondsHand.style.transform = "rotate(0deg)";
+  this.minutesHand.style.transitionDuration = "0s";
+  this.minutesHand.style.transform = "rotate(0deg)";
+  setTimeout(() => {
+    this.secondsHand.style.transitionDuration = "1s";
+    this.minutesHand.style.transitionDuration = "60s";
+    this.totalMinuteNeedleRotation = 0;
+    this.totalSecondNeedleRotation = 0;
+  }, 100);
+}
 var analogTemplate = `
 <button id='start'>Start</button>
 <button id='lap'>Lap</button>
