@@ -1,20 +1,23 @@
 function Template(document, templatesContainerQuerySelector, templateType) {
-    this.document = document;
-    this.templatesContainer = this.document.querySelector(templatesContainerQuerySelector);
-    this.templateType = templateType;
-    this.templateRendered = false;
-    this.currentState = 'STOPPED';
+    // this.document = document;
+    // this.templatesContainer = this.document.querySelector(templatesContainerQuerySelector);
+    // this.templateType = templateType;
+    // this.templateRendered = false;
+    // this.currentState = 'STOPPED';
 }
 Template.prototype = {
-    templatesMap: {
-      analog: analogTemplate,
-      digital: digitalTemplate
-    },
+    // templatesMap: {
+    //   analog: analogTemplate,
+    //   digital: digitalTemplate
+    // },
     //This should render the template according to templateType
     renderTemplate: function() {
-        var templateToRender = this.templatesMap[this.templateType];
-        this.templatesContainer.innerHTML = templateToRender;
+        this.templatesContainer.innerHTML = this.templateToRender;
     },
+    // renderTemplate: function() {
+    //     var templateToRender = this.templatesMap[this.templateType];
+    //     this.templatesContainer.innerHTML = templateToRender;
+    // },
     //This sets the template state that it has been rendered and is now ready to set variables
     templateIsRendered: function() {
         this.templateRendered = true;
@@ -81,17 +84,21 @@ Template.prototype = {
             node.removeChild(node.firstChild);
         }
     },
-    clearTimer: function(){
-      this.formatTime(0);
+    clearTimer: function() {
+        this.displayTime(0);
     },
     renderTimer: function(counter) {
-        this.formatTime(counter);
+        this.displayTime(counter);
     },
-    formatTime: function(counter) {
+    displayTime: function(counter) {
         var time = this.getTimeObj(counter);
         this.minutesDiv.innerHTML = time.minutes;
         this.secondsDiv.innerHTML = time.seconds;
         this.millisecondsDiv.innerHTML = time.milliseconds;
+    },
+    formatTime: function(counter) {
+        var time = this.getTimeObj(counter);
+        return `${time.minutes}:${time.seconds}:${time.milliseconds}`;
     },
     getTimeObj: function(counter) {
         var timeObj = {};
@@ -99,6 +106,12 @@ Template.prototype = {
         var seconds = parseInt(counter / 100);
         timeObj.seconds = this.addPadding(seconds % 60);
         timeObj.minutes = this.addPadding(parseInt(seconds / 60));
+        timeObj.minutesInTens = parseInt(timeObj.minutes.charAt(0));
+        timeObj.minutesInOnes = parseInt(timeObj.minutes.charAt(1));
+        timeObj.secondsInTens = parseInt(timeObj.seconds.charAt(0));
+        timeObj.secondsInOnes = parseInt(timeObj.seconds.charAt(1));
+        timeObj.millisecondsInTens = parseInt(timeObj.milliseconds.charAt(0));
+        timeObj.millisecondsInOnes = parseInt(timeObj.milliseconds.charAt(1));
         return timeObj;
     },
     addPadding: function(n) {

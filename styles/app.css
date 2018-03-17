@@ -1,4 +1,53 @@
 .timer-section{
   display: inline-block;
-  overflow: none;
+  font-size: 30px;
+  width: 60px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.timer-section-subpart{
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  position: absolute;
+  line-height: 30px;
+}
+.ones{
+  left: 30px;
+}
+#minutes-in-tens{
+  transition-delay: 600s;
+  transition-property: bottom;
+  bottom: 0;
+}
+#minutes-in-ones{
+  transition-delay: 60s;
+  transition-property: bottom;
+  bottom: 0;
+}
+#seconds-in-tens{
+  transition-delay: 10s;
+  transition-property: bottom;
+  bottom: 0;
+}
+#seconds-in-ones{
+  transition-delay: 1s;
+  transition-property: bottom;
+  bottom: 0;
+}
+#milliseconds-in-tens{
+  transition-delay: 0.1s;
+  transition-property: bottom;
+  bottom: 0;
+}
+#milliseconds-in-ones{
+  transition-delay: 0.01s;
+  transition-property: bottom;
+  bottom: 0;
+}
+.delimmiter{
+  position: relative;
+  bottom: 10px;
 }
