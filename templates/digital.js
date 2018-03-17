@@ -7,25 +7,23 @@ var DigitalTemplate = function(document, templatesContainerQuerySelector) {
 }
 DigitalTemplate.prototype = Object.create(Template.prototype);
 DigitalTemplate.prototype.constructor = DigitalTemplate;
-DigitalTemplate.prototype.setupVariables = function() {
-    Template.prototype.setupVariables.call(this);
-    this.minutesInTens = this.document.getElementById('minutes-in-tens');
-    this.minutesInOnes = this.document.getElementById('minutes-in-ones');
-    this.secondsInTens = this.document.getElementById('seconds-in-tens');
-    this.secondsInOnes = this.document.getElementById('seconds-in-ones');
-    this.millisecondsInHundreds = this.document.getElementById('milliseconds-in-hundreds');
-    this.millisecondsInTens = this.document.getElementById('milliseconds-in-tens');
-    this.millisecondsInOnes = this.document.getElementById('milliseconds-in-ones');
+DigitalTemplate.prototype.setupVariables = function(){
+  Template.prototype.setupVariables.call(this);
+  this.minutesInTens = this.document.getElementById('minutes-in-tens');
+  this.minutesInOnes = this.document.getElementById('minutes-in-ones');
+  this.secondsInTens = this.document.getElementById('seconds-in-tens');
+  this.secondsInOnes = this.document.getElementById('seconds-in-ones');
+  this.millisecondsInTens = this.document.getElementById('milliseconds-in-tens');
+  this.millisecondsInOnes = this.document.getElementById('milliseconds-in-ones');
 }
 DigitalTemplate.prototype.displayTime = function(counter) {
-    var time = this.getTimeObj(counter);
-    this.minutesInTens.innerHTML = time.minutesInTens;
-    this.minutesInOnes.innerHTML = time.minutesInOnes;
-    this.secondsInTens.innerHTML = time.secondsInTens;
-    this.secondsInOnes.innerHTML = time.secondsInOnes;
-    this.millisecondsInHundreds.innerHTML = time.millisecondsInHundreds;
-    this.millisecondsInTens.innerHTML = time.millisecondsInTens;
-    this.millisecondsInOnes.innerHTML = time.millisecondsInOnes;
+  var time = this.getTimeObj(counter);
+  this.minutesInTens.innerHTML = time.minutesInTens;
+  this.minutesInOnes.innerHTML = time.minutesInOnes;
+  this.secondsInTens.innerHTML = time.secondsInTens;
+  this.secondsInOnes.innerHTML = time.secondsInOnes;
+  this.millisecondsInTens.innerHTML = time.millisecondsInTens;
+  this.millisecondsInOnes.innerHTML = time.millisecondsInOnes;
 }
 //https://css-tricks.com/infinite-all-css-scrolling-slideshow/
 var digitalTemplate = `
@@ -90,18 +88,6 @@ var digitalTemplate = `
   </div>
   <div class='timer-section-subpart delimmiter'>:</div>
   <div id='milliseconds' class='timer-section'>
-    <div id="milliseconds-in-hundreds" class='timer-section-subpart hours'>
-      <span>0</span><br>
-      <span>1</span><br>
-      <span>2</span><br>
-      <span>3</span><br>
-      <span>4</span><br>
-      <span>5</span><br>
-      <span>6</span><br>
-      <span>7</span><br>
-      <span>8</span><br>
-      <span>9</span>
-    </div>
     <div id="milliseconds-in-tens" class='timer-section-subpart tens'>
       <span>0</span><br>
       <span>1</span><br>

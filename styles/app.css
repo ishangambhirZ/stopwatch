@@ -6,9 +6,6 @@
   position: relative;
   overflow: hidden;
 }
-#milliseconds{
-  width: 90px;
-}
 .timer-section-subpart{
   display: inline-block;
   height: 30px;
@@ -19,12 +16,6 @@
 }
 .ones{
   left: 30px;
-}
-#milliseconds > .tens{
-  left: 30px;
-}
-#milliseconds > .ones{
-  left: 60px;
 }
 /* #minutes-in-tens{
   transition-delay: 600s;

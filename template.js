@@ -102,10 +102,10 @@ Template.prototype = {
     },
     getTimeObj: function(counter) {
         var timeObj = {};
-        var seconds = parseInt(counter / 1000);
+        var seconds = parseInt(counter / 100);
         var minutes = parseInt(seconds / 60);
         var hours = parseInt(minutes / 60);
-        timeObj.milliseconds = this.addPadding(counter % 1000, 3);
+        timeObj.milliseconds = this.addPadding(counter % 100);
         timeObj.seconds = this.addPadding(seconds % 60);
         timeObj.minutes = this.addPadding(minutes);
         timeObj.hours = this.addPadding(hours);
@@ -113,17 +113,12 @@ Template.prototype = {
         timeObj.minutesInOnes = parseInt(timeObj.minutes.charAt(1));
         timeObj.secondsInTens = parseInt(timeObj.seconds.charAt(0));
         timeObj.secondsInOnes = parseInt(timeObj.seconds.charAt(1));
-        timeObj.millisecondsInHundreds = parseInt(timeObj.milliseconds.charAt(0));
-        timeObj.millisecondsInTens = parseInt(timeObj.milliseconds.charAt(1));
-        timeObj.millisecondsInOnes = parseInt(timeObj.milliseconds.charAt(2));
+        timeObj.millisecondsInTens = parseInt(timeObj.milliseconds.charAt(0));
+        timeObj.millisecondsInOnes = parseInt(timeObj.milliseconds.charAt(1));
         return timeObj;
     },
-    addPadding: function(n, x = 2) {
-        if (x == 2) {
-            return n < 10 ? `0${n}` : `${n}`;
-        } else if (x == 3) {
-            return n < 100 ? `00${n}` : `${n}`;
-        }
+    addPadding: function(n) {
+        return n < 10 ? `0${n}` : `${n}`;
     },
     hideNodes: function(nodes) {
         nodes.forEach((node) => this.hide(node));

@@ -94,8 +94,8 @@
     left: 150px;
     transform: rotate(0deg);
     transform-origin: center bottom 0px;
-    /* transition-property: : transform;
-    transition-timing-function: linear; */
+    transition-property: : transform;
+    transition-timing-function: linear;
 }
 
 #minutes-hand {
@@ -111,7 +111,7 @@
     width: 2px;
     top: 30px;
     background: #804515;
-    /* transition-duration: 60s; */
+    transition-duration: 60s;
 }
 
 #milliseconds-hand {
@@ -119,5 +119,5 @@
     width: 1px;
     top: 50px;
     background: #552700;
-    /* transition-duration: 1s; */
+    transition-duration: 1s;
 }
