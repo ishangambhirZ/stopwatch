@@ -3,7 +3,6 @@ function Template(document, templatesContainerQuerySelector, templateType) {
     // this.templatesContainer = this.document.querySelector(templatesContainerQuerySelector);
     // this.templateType = templateType;
     // this.templateRendered = false;
-    // this.currentState = 'STOPPED';
 }
 Template.prototype = {
     // templatesMap: {

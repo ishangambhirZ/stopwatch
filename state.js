@@ -13,10 +13,7 @@ State.prototype = {
   },
   startWatch: function(){
     this.state = 'RUNNING';
-    this.timer = this.window.setInterval(() => {
-      this.counter++;
-      this.template.refreshRender(this.state, this.counter);
-    }, this.step);
+    this.timer = this.runTimer();
   },
   pauseWatch: function(){
     this.state = 'PAUSED';
@@ -29,16 +26,19 @@ State.prototype = {
   },
   resumeWatch: function(){
     this.state = 'RUNNING';
-    this.timer = this.window.setInterval(() => {
-      this.counter++;
-      this.template.refreshRender(this.state, this.counter);
-    }, this.step);
+    this.timer = this.runTimer();
   },
   resetWatch: function(){
     this.state = 'STOPPED';
     this.window.clearInterval(this.timer);
     this.resetState();
     this.template.refreshRender(this.state);
+  },
+  runTimer: function(){
+    return this.window.setInterval(() => {
+      this.counter++;
+      this.template.refreshRender(this.state, this.counter);
+    }, this.step);
   },
   constructor: State
 }

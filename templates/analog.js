@@ -2,31 +2,48 @@ var AnalogTemplate = function(document, templatesContainerQuerySelector) {
     this.document = document;
     this.templatesContainer = this.document.querySelector(templatesContainerQuerySelector);
     this.templateRendered = false;
-    this.currentState = 'STOPPED';
     this.templateToRender = analogTemplate;
-    this.totalMinuteNeedleRotations = 0;
-    this.totalSecondNeedleRotations = 0;
-    this.totalMillisecondNeedleRotations = 0;
+    this.totalMinuteNeedleRotation = 0;
+    this.totalSecondNeedleRotation = 0;
 }
 AnalogTemplate.prototype = Object.create(Template.prototype);
 AnalogTemplate.prototype.constructor = AnalogTemplate;
-AnalogTemplate.prototype.setupVariables = function(){
-  Template.prototype.setupVariables.call(this);
-  this.millisecondsHand = this.document.getElementById('milliseconds-hand');
-  this.secondsHand = this.document.getElementById('seconds-hand');
-  this.minutesHand = this.document.getElementById('minutes-hand');
+AnalogTemplate.prototype.setupVariables = function() {
+    Template.prototype.setupVariables.call(this);
+    this.millisecondsHand = this.document.getElementById('milliseconds-hand');
+    this.secondsHand = this.document.getElementById('seconds-hand');
+    this.minutesHand = this.document.getElementById('minutes-hand');
 }
 AnalogTemplate.prototype.displayTime = function(counter) {
+    if (counter === 0) {
+        return;
+    }
     var time = this.getTimeObj(counter);
+    var milliseconds = parseInt(time.milliseconds);
     var seconds = parseInt(time.seconds);
     var minutes = parseInt(time.minutes);
-    var hours = parseInt(time.hours);
-    this.rotateNode(this.millisecondsHand, seconds*6);
-    this.rotateNode(this.secondsHand, minutes*6);
-    this.rotateNode(this.minutesHand, hours*6);
+    var secondsRotation, minutesRotation;
+    if (this.currentState == 'PAUSED') {
+        secondsRotation = (seconds) * 6;
+        minutesRotation = (minutes) * 6;
+        this.rotateNode(this.secondsHand, this.totalSecondNeedleRotation);
+        this.rotateNode(this.minutesHand, this.totalMinuteNeedleRotation);
+    } else {
+        secondsRotation = (seconds + 1) * 6;
+        minutesRotation = (minutes + 1) * 6;
+        this.rotateNode(this.millisecondsHand, milliseconds * 3.6);
+        if (this.totalSecondNeedleRotation%360 !== secondsRotation%360) {
+            this.totalSecondNeedleRotation += 6;
+            this.rotateNode(this.secondsHand, this.totalSecondNeedleRotation);
+        }
+        if (this.totalMinuteNeedleRotation%360 !== minutesRotation%360)) {
+            this.totalMinuteNeedleRotation += 6;
+            this.rotateNode(this.minutesHand, this.totalMinuteNeedleRotation);
+        }
+    }
 }
-AnalogTemplate.prototype.rotateNode = function(node, val){
-  node.style.transform = `rotate(${val}deg)`;
+AnalogTemplate.prototype.rotateNode = function(node, val) {
+    node.style.transform = `rotate(${val}deg)`;
 }
 
 var analogTemplate = `
