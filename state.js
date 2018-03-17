@@ -1,46 +1,44 @@
-//state variables
-var status, interval, currentTimer, counter, timerArr;
-
-//state functions
-function resetState(){
-  status = 'STOPPED';
-  timerArray = [];
-  interval = 0;
-  counter = 0;
-  currentTimer = {
-    ms: '00',
-    s: '00',
-    m: '00'
-  }
+function State(window, template, step){
+  this.window = window;
+  this.template = template;
+  this.step = step;
+  this.resetState();
 }
-//depends upon util and dom
-function updateTimer(){
-  var ms = counter%100;
-  currentTimer.ms=addPadding(ms);
-  var secs = parseInt(counter/100);
-  var s = secs%60;
-  currentTimer.s=addPadding(s);
-  var m = parseInt(secs/60);
-  currentTimer.m = addPadding(m);
-  renderTimer();
-}
-function updateStatus(newStatus){
-  status = newStatus;
-}
-function runTimer(){
-  interval = setInterval(function(){
-    counter++;
-    updateTimer();
-  }, 1);
-}
-function pauseTimer(){
-  clearInterval(interval);
-}
-function resetWatch(){
-  resetState();
-}
-function recordTime(){
-  let time = JSON.parse(JSON.stringify(currentTimer));
-  timerArray.push(time);
-  return time;
+State.prototype = {
+  resetState: function(){
+    this.counter = 0;
+    this.timer = 0;
+    this.laps = [];
+    this.status = 'STOPPED';
+  },
+  startWatch: function(){
+    this.state = 'RUNNING';
+    this.timer = this.window.setInterval(() => {
+      this.counter++;
+      this.template.refreshRender(this.state, this.counter);
+    }, this.step);
+  },
+  pauseWatch: function(){
+    this.state = 'PAUSED';
+    this.window.clearInterval(this.timer);
+    this.template.refreshRender(this.state);
+  },
+  recordLap: function(){
+    var currentCounter = this.counter;
+    this.template.saveLap(currentCounter);
+  },
+  resumeWatch: function(){
+    this.state = 'RUNNING';
+    this.timer = this.window.setInterval(() => {
+      this.counter++;
+      this.template.refreshRender(this.state, this.counter);
+    }, this.step);
+  },
+  resetWatch: function(){
+    this.state = 'STOPPED';
+    this.window.clearInterval(this.timer);
+    this.resetState();
+    this.template.refreshRender(this.state);
+  },
+  constructor: State
 }
