@@ -2,7 +2,6 @@ function Events(window, template, state) {
     this.window = window;
     this.template = template;
     this.state = state;
-    this.stopWatchAttached();
 }
 Events.prototype = {
     //This is mapping of the node elements with the functions on particular event

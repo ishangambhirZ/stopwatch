@@ -8,5 +8,6 @@ window.onload = function(){
   }
   let state = new State(window, template, 10);
   let eventsObj = new Events(window, template, state);
+  eventsObj.stopWatchAttached();
   template.renderTemplate();
 }
